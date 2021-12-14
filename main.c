@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "include/sequential.h"
+#include "include/parallel.h"
 
 void print_array(int *array, int size) {
     for (int i=0; i < size; i++) {
@@ -28,11 +29,11 @@ int main(int argc, char *argv[]) {
 
     if (running_type==1) {
         sequential(input_array,output_array,size);
-        print_array(output_array,size);
     }
     else if (running_type==0) {
-        //TO DO Execução paralela
+        parallel(input_array,output_array,size);
     }
+    //print_array(output_array,size);
 
     free(input_array);
     free(output_array);
