@@ -18,7 +18,8 @@ void quick_sort(int *bucket, int bucket_size, int *sorted_bucket) {
     int bucket_1[bucket_size], bucket_2[bucket_size];
     int bucket_1_fill=0, bucket_2_fill=0;
     int last_element = bucket[bucket_size-1];
-    for (int i=0; i < bucket_size-1; i++) {
+    int i;
+    for (i=0; i < bucket_size-1; i++) {
         if (bucket[i] < last_element) {
             bucket_1[bucket_1_fill++]=bucket[i];
         }
@@ -33,7 +34,8 @@ void quick_sort(int *bucket, int bucket_size, int *sorted_bucket) {
 
 void initialize_buckets(int * input_array, int size, int *number_buckets, int *** buckets, int *min, int *max) {
     *max=input_array[0], *min=input_array[0];
-    for (int i = 1; i < size; i++) {
+    int i;
+    for (i = 1; i < size; i++) {
         if (input_array[i] > *max) {
             *max = input_array[i];
         }
@@ -46,7 +48,7 @@ void initialize_buckets(int * input_array, int size, int *number_buckets, int **
     *buckets = malloc(*number_buckets*sizeof(int*));
 
     printf("Mininum_Value: %d Maximum_Value: %d\n",*min,*max);
-    for (int i =0 ;i <*number_buckets; i++) {
+    for (i =0 ;i <*number_buckets; i++) {
         (*buckets)[i]=malloc(0.5*size*sizeof(int));
     }
     printf("Buckets created\n");

@@ -4,25 +4,21 @@
 
 void organize_into_buckets_parallel(int* input_array, int size, int **buckets, int *bucket_fill, int number_buckets, int minimum_value, int maximum_value) {
     int bucket_increment = (maximum_value - minimum_value)/number_buckets+1;
-    for (int i = 0; i< number_buckets; i++) { //Enchimento de todos os baldes começa a 0
+    int i;
+    for (i = 0; i< number_buckets; i++) { //Enchimento de todos os baldes começa a 0
         bucket_fill[i] = 0;
     }
-    for (int i=0 ; i < size; i++) {
-        int bucket = input_array[i]/bucket_increment;
+    for (i = 0 ; i < size; i++) {
+        int bucket = (input_array[i] - minimum_value)/bucket_increment;
         buckets[bucket][bucket_fill[bucket]++]=input_array[i];
     }
     printf("Buckets organized\n");
 }
 
 void sort_buckets_parallel(int **buckets, int *bucket_fill, int number_buckets, int *sorted_bucket) {
-    /*
-    printf("Max number of threads is %d\n",omp_get_max_threads());
-    printf("O numero de threads é: %d\n",omp_get_num_threads());
-    omp_set_num_threads(number_buckets);
-    printf("O numero de threads é: %d\n",omp_get_num_threads());
-    */
     int checked_list[number_buckets];
-    for (int bucket_id = 0; bucket_id < number_buckets; bucket_id++) {
+    int bucket_id;
+    for (bucket_id = 0; bucket_id < number_buckets; bucket_id++) {
         if (bucket_id == 0) {
             checked_list[bucket_id]=0;
         }
@@ -31,8 +27,7 @@ void sort_buckets_parallel(int **buckets, int *bucket_fill, int number_buckets, 
         }
     }
     #pragma omp parallel for 
-    for (int bucket_id = 0; bucket_id < number_buckets; bucket_id++) {
-        #pragma omp task
+    for (bucket_id = 0; bucket_id < number_buckets; bucket_id++) {
         quick_sort(buckets[bucket_id], bucket_fill[bucket_id], sorted_bucket + checked_list[bucket_id]);
     }
 }
@@ -48,7 +43,8 @@ void parallel(int* input_array, int* output_array, int size) {
     long int end = get_current_time();
     printf("Total Time: %ld miliseconds\n",end-start);
     //freeing allocated memmory
-    for (int i =0 ;i < number_buckets; i++) {
+    int i;
+    for (i = 0 ;i < number_buckets; i++) {
         free(buckets[i]);
     }
     free(buckets);

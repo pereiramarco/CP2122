@@ -5,7 +5,8 @@
 #include "include/parallel.h"
 
 void print_array(int *array, int size) {
-    for (int i=0; i < size; i++) {
+    int i;
+    for (i=0; i < size; i++) {
         printf("%d ", array[i]);
     }
     printf("\n");
@@ -23,18 +24,23 @@ int main(int argc, char *argv[]) {
     output_array = malloc(size*sizeof(int));
 
     srand(time(NULL)); //Dar seed ao random generator para ter sempre outputs diferentes
-    for (int i=0; i<size; i++) {
+    int i;
+    for (i=0; i<size; i++) {
         input_array[i]=rand()%max_number;//randomização de um valor aleatório entre 0 e max_number
     }
-
+    print_array(input_array,size);
     if (running_type==1) {
+        printf("Running sequential version\n");
         sequential(input_array,output_array,size);
     }
     else if (running_type==0) {
+        printf("Running parallel version\n");
         parallel(input_array,output_array,size);
     }
-    //print_array(output_array,size);
+    print_array(output_array,size);
 
     free(input_array);
     free(output_array);
+
+    return 0;
 }
