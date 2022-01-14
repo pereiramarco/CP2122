@@ -47,9 +47,8 @@ void initialize_buckets(int * input_array, int size, int *number_buckets, int **
     *number_buckets = round(sqrt(size));
     *buckets = malloc(*number_buckets*sizeof(int*));
 
-    printf("Mininum_Value: %d Maximum_Value: %d\n",*min,*max);
     for (i =0 ;i <*number_buckets; i++) {
         (*buckets)[i]=malloc(0.5*size*sizeof(int));
     }
-    printf("Buckets created\n");
+    //printf("Buckets created\n");
 }

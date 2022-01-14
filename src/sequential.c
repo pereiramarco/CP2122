@@ -12,7 +12,7 @@ void organize_into_buckets_sequencial(int* input_array, int size, int **buckets,
         buckets[bucket][bucket_fill[bucket]]=input_array[i];
         bucket_fill[bucket]++;
     }
-    printf("Buckets organized\n");
+    //printf("Buckets organized\n");
 }
 
 void sort_buckets_sequential(int **buckets, int *bucket_fill, int number_buckets, int *sorted_bucket) {
@@ -28,11 +28,8 @@ void sequential(int* input_array, int* output_array, int size) {
 
     initialize_buckets(input_array, size, &number_buckets, &buckets, &min, &max); //Inicializa os buckets
     int bucket_fill[number_buckets];
-    long int start = get_current_time();
     organize_into_buckets_sequencial(input_array, size, buckets, bucket_fill, number_buckets, min, max); // Organiza cada elemento no seu bucket
     sort_buckets_sequential(buckets, bucket_fill, number_buckets, output_array);
-    long int end = get_current_time();
-    printf("Total Time: %ld miliseconds\n",end-start);
     //freeing allocated memmory
     int i;
     for (i = 0 ;i < number_buckets; i++) {

@@ -10,9 +10,10 @@ void organize_into_buckets_parallel(int* input_array, int size, int **buckets, i
     }
     for (i = 0 ; i < size; i++) {
         int bucket = (input_array[i] - minimum_value)/bucket_increment;
-        buckets[bucket][bucket_fill[bucket]++]=input_array[i];
+        buckets[bucket][bucket_fill[bucket]]=input_array[i];
+        bucket_fill[bucket]++;
     }
-    printf("Buckets organized\n");
+    //printf("Buckets organized\n");
 }
 
 void sort_buckets_parallel(int **buckets, int *bucket_fill, int number_buckets, int *sorted_bucket) {
@@ -37,11 +38,8 @@ void parallel(int* input_array, int* output_array, int size) {
 
     initialize_buckets(input_array, size, &number_buckets, &buckets, &min, &max); //Inicializa os buckets
     int bucket_fill[number_buckets];
-    long int start = get_current_time();
     organize_into_buckets_parallel(input_array, size, buckets, bucket_fill, number_buckets, min, max); // Organiza cada elemento no seu bucket
     sort_buckets_parallel(buckets, bucket_fill, number_buckets, output_array);
-    long int end = get_current_time();
-    printf("Total Time: %ld miliseconds\n",end-start);
     //freeing allocated memmory
     int i;
     for (i = 0 ;i < number_buckets; i++) {
