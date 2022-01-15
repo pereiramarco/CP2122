@@ -15,11 +15,10 @@ void organize_into_buckets_sequencial(int* input_array, int size, int **buckets,
     //printf("Buckets organized\n");
 }
 
-void sort_buckets_sequential(int **buckets, int *bucket_fill, int number_buckets, int *sorted_bucket) {
-    int numbers_checked = 0,bucket_id;
+void sort_buckets_sequential(int **buckets, int *bucket_fill, int number_buckets) {
+    int bucket_id;
     for (bucket_id = 0; bucket_id < number_buckets; bucket_id++) {
-        quick_sort(buckets[bucket_id], bucket_fill[bucket_id], sorted_bucket + numbers_checked);
-        numbers_checked += bucket_fill[bucket_id];
+        quick_sort(buckets[bucket_id], 0, bucket_fill[bucket_id]);
     }
 }
 
@@ -29,10 +28,15 @@ void sequential(int* input_array, int* output_array, int size) {
     initialize_buckets(input_array, size, &number_buckets, &buckets, &min, &max); //Inicializa os buckets
     int bucket_fill[number_buckets];
     organize_into_buckets_sequencial(input_array, size, buckets, bucket_fill, number_buckets, min, max); // Organiza cada elemento no seu bucket
-    sort_buckets_sequential(buckets, bucket_fill, number_buckets, output_array);
+    sort_buckets_sequential(buckets, bucket_fill, number_buckets);
     //freeing allocated memmory
-    int i;
+    int i,j,total_i;
+    total_i = 0;
     for (i = 0 ;i < number_buckets; i++) {
+        for (j = 0; j < bucket_fill[i]; j++) {
+            output_array[total_i] = buckets[i][j];
+            total_i++;
+        }
         free(buckets[i]);
     }
     free(buckets);

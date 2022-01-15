@@ -76,11 +76,6 @@ int main (int argc, char *argv[]) {
         return 0;
     }
 
-        // warmup caches
-        fprintf (stdout, "Warming up caches...\n");
-        sort(argc,argv);
-        fprintf (stdout, "done!\n");
-
     for (run=0 ; run < NUM_RUNS ; run++) { 
         srand(rand()); //Seeding random to get different arrays everytime
         fprintf (stderr, "\nrun=%d - Sorting\n", run);
