@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#directory
 MY=~/CP2122
 
 #size of the random array
@@ -22,4 +23,4 @@ THREADS=16
 
 module load papi/5.4.1
 export OMP_NUM_THREADS=$THREADS
-srun --partition=$PARTITION $MY/sort $SORT_SIZE $MAX_NUMBER $RUN_TYPE
+srun --partition=$PARTITION --nodelist=$NODE $MY/sort $SORT_SIZE $MAX_NUMBER $RUN_TYPE
