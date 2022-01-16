@@ -2,4 +2,4 @@
 #include <math.h>
 #include <stdlib.h>
 
-void sequential(int* input_array, int* output_array, int size);
+void sequential(int* array, int size);

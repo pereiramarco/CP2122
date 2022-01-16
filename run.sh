@@ -4,10 +4,10 @@
 MY=~/CP2122
 
 #size of the random array
-SORT_SIZE=10000000
+SORT_SIZE=1000000
 
 #max number in the random array
-MAX_NUMBER=10000000
+MAX_NUMBER=100000000
 
 #type of the run executed (0 for parallel, 1 for sequential)
 RUN_TYPE=0
@@ -16,10 +16,10 @@ RUN_TYPE=0
 PARTITION=cpar
 
 #nodelist
-NODE=compute-113-17
+NODE=compute-134-102
 
 #threads
-THREADS=16
+THREADS=20
 
 module load papi/5.4.1
 export OMP_NUM_THREADS=$THREADS

@@ -179,7 +179,7 @@ void initialize_buckets(int * input_array, int size, int *number_buckets, int **
         }
     }
     //Creating buckets
-    *number_buckets = round(sqrt(size));
+    *number_buckets = 40;
     *buckets = malloc(*number_buckets*sizeof(int*));
 
     for (i =0 ;i <*number_buckets; i++) {

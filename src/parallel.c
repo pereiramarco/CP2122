@@ -18,25 +18,25 @@ void organize_into_buckets_parallel(int* input_array, int size, int **buckets, i
 
 void sort_buckets_parallel(int **buckets, int *bucket_fill, int number_buckets) {
     int bucket_id;    
-    #pragma omp parallel for 
+    #pragma omp parallel for
     for (bucket_id = 0; bucket_id < number_buckets; bucket_id++) {
-        quick_sort(buckets[bucket_id], 0, bucket_fill[bucket_id]);
+        radix_sort(buckets[bucket_id], 0, bucket_fill[bucket_id]);
     }
 }
 
-void parallel(int* input_array, int* output_array, int size) {
+void parallel(int* array, int size) {
     int min, max, number_buckets, **buckets;
 
-    initialize_buckets(input_array, size, &number_buckets, &buckets, &min, &max); //Inicializa os buckets
+    initialize_buckets(array, size, &number_buckets, &buckets, &min, &max); //Inicializa os buckets
     int bucket_fill[number_buckets];
-    organize_into_buckets_parallel(input_array, size, buckets, bucket_fill, number_buckets, min, max); // Organiza cada elemento no seu bucket
+    organize_into_buckets_parallel(array, size, buckets, bucket_fill, number_buckets, min, max); // Organiza cada elemento no seu bucket
     sort_buckets_parallel(buckets, bucket_fill, number_buckets);
     //freeing allocated memmory
     int i,j,total_i;
     total_i = 0;
     for (i = 0 ;i < number_buckets; i++) {
         for (j = 0; j < bucket_fill[i]; j++) {
-            output_array[total_i] = buckets[i][j];
+            array[total_i] = buckets[i][j];
             total_i++;
         }
         free(buckets[i]);

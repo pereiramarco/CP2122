@@ -22,19 +22,19 @@ void sort_buckets_sequential(int **buckets, int *bucket_fill, int number_buckets
     }
 }
 
-void sequential(int* input_array, int* output_array, int size) {
+void sequential(int* array, int size) {
     int min, max, number_buckets, **buckets;
 
-    initialize_buckets(input_array, size, &number_buckets, &buckets, &min, &max); //Inicializa os buckets
+    initialize_buckets(array, size, &number_buckets, &buckets, &min, &max); //Inicializa os buckets
     int bucket_fill[number_buckets];
-    organize_into_buckets_sequencial(input_array, size, buckets, bucket_fill, number_buckets, min, max); // Organiza cada elemento no seu bucket
+    organize_into_buckets_sequencial(array, size, buckets, bucket_fill, number_buckets, min, max); // Organiza cada elemento no seu bucket
     sort_buckets_sequential(buckets, bucket_fill, number_buckets);
     //freeing allocated memmory
     int i,j,total_i;
     total_i = 0;
     for (i = 0 ;i < number_buckets; i++) {
         for (j = 0; j < bucket_fill[i]; j++) {
-            output_array[total_i] = buckets[i][j];
+            array[total_i] = buckets[i][j];
             total_i++;
         }
         free(buckets[i]);
